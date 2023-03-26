@@ -16,6 +16,9 @@ export default({
       reuqestResult: 'Empty'
     }
   },
+  computed: {
+    //TODO: Add search filters
+  },
   methods: {
        testCall() {
             //call api
