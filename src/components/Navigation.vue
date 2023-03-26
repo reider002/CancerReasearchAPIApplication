@@ -1,7 +1,7 @@
 <template>
   <header>
     <nav class="shadow p-4 flex items-center bg-gray-700">
-        <h1 class="mr-8 text-xl text-white">APC Frameshift Research Appliation</h1>
+        <h1 class="mr-8 text-xl text-white">Cancer Research Appliation</h1>
         <div v-for="link of links" class="mr-4 px-4 py-2 bg-white rounded-xl">
             <RouterLink  :to="link.path" >{{link.name}}</RouterLink>
         </div>
@@ -17,7 +17,7 @@ export default({
             reuqestResult: 'Empty',
             links: [
                 {
-                    name: 'Dashboard',
+                    name: 'GDC Dashboard',
                     path: '/'
                 },
                 {
@@ -25,8 +25,8 @@ export default({
                     path: '/test-api-calls'
                 },
                 {
-                    name: 'AlleleData',
-                    path: '/AlleleData'
+                    name: 'GDC Allele Data',
+                    path: '/allele-data'
                 }
             ]
         }
