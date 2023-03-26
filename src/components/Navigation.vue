@@ -21,12 +21,12 @@ export default({
                     path: '/'
                 },
                 {
-                    name: 'Test',
+                    name: 'Test API Calls',
                     path: '/test-api-calls'
                 },
                 {
-                    name: 'TokenLibs',
-                    path: '/TokenLibs'
+                    name: 'AlleleData',
+                    path: '/AlleleData'
                 }
             ]
         }
