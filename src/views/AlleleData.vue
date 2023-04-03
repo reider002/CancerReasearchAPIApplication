@@ -29,16 +29,17 @@
     </table>
   </div>
   </template>
+  //TODO: loop throuh items to display in clickable table
 
   
   <script>
-  //import json from local
-  import json from 'C:/Users/Ashley/Documents/PersonalProject/CancerReasearchAPIApplication/Json/mutations.2023-03-26.json'
+  //TODO: change from local import to API call in data function
+  import jsonData from '../Json/consequences-data(1).json'
   export default {
     name: 'AlleleData',
     data: function() {
       return {
-        Json: json.Json, //passing array data into Vue
+        data:jsonData, //passing array data into Vue
       };
     },
     mounted: function() {
