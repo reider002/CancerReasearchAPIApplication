@@ -19,8 +19,8 @@
     methods: {
       runBiopython() {
           //TODO: replace api call with correct endpoint from Flask Biopython connection
-        axios.get('/api/biopython').then(response => {
-          this.biopythonResult = response.data.result;
+        axios.get('http://rest.ensembl.org/overlap/region/Homo_sapiens/5:112707498-112846239?feature=exon').then(response => {
+          console.log(response.data);
         }).catch(error => {
           console.error(error);
         });
