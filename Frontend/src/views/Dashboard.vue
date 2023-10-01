@@ -1,56 +1,38 @@
 <template>
-  <!--HTML-->
-  <div class="shadow p-4 rounded-xl bg-white">
-    <button @click="exportExonData" class="bg-slate-400 px-4 py-1 rounded-xl mb-4 hover:shadow-lg">Export Exon Data</button>
-    <div v-if="exonData">
-      <h2>Exons for gene {{ selectedGene }}:</h2>
-      <ul>
-        <li v-for="exon in exonData" :key="exon.id">{{ exon.id }}</li>
-      </ul>
-    </div>
+  <div>
+    <h1>Data from HTML</h1>
+    <div v-html="htmlData"></div>
+    <div v-if="error" class="error-message">{{ error }}</div>
   </div>
 </template>
 
 <script>
-//Javascrpt
 import axios from 'axios';
-//import XLSX from 'xlsx'; - causes crash?
 
 export default {
-  name: 'ExonData',
   data() {
     return {
-      exonData: null,
-      selectedGene: 'TP53',
+      htmlData: '',
+      error: null,
     };
   },
-  methods: {
-    async exportExonData() {
-      try {
-        const response = await axios.get(`https://rest.ensembl.org/overlap/id/a9671ce1-921e-5f6e-ab41-a4ce9d2f4343?feature=exon;content-type=application/json`);
-        const exons = response.data.map((exon) => ({
-          id: exon.id,
-          start: exon.start,
-          end: exon.end,
-        }));
-        const wb = XLSX.utils.book_new();
-        const ws = XLSX.utils.json_to_sheet(exons);
-        XLSX.utils.book_append_sheet(wb, ws, 'Exon Data');
-        XLSX.writeFile(wb, 'exon_data.xlsx');
-        alert('Exon data exported successfully!');
-      } catch (error) {
-        console.error(error);
-        alert('Failed to export exon data.');
-      }
-      console.log('Getting exon data from server...');
-      const response = await axios.get(`https://rest.ensembl.org/overlap/id/a9671ce1-921e-5f6e-ab41-a4ce9d2f4343?feature=exon;content-type=application/json`);
-    console.log('Exon data retrieved:', response.data);
-
-    },
+  mounted() {
+    // Make an HTTP GET request to the HTML URL
+    axios.get('http://nov2020.archive.ensembl.org/Homo_sapiens/Export/Output/Gene?db=core;flank3_display=0;flank5_display=0;g=ENSG00000163898;output=csv;r=3:185506262-185552588;strand=feature;param=similarity;param=repeat;param=genscan;param=variation;param=gene;miscset_encode=yes;miscset_encode_excluded=yes;miscset_ABC=yes;miscset_tilepath=yes;miscset_CHORI-17=yes;miscset_WIBR-2=yes;miscset_RPCI-11=yes;_format=HTML')
+      .then(response => {
+        // Set the response HTML to the htmlData data property
+        this.htmlData = response.data;
+      })
+      .catch(error => {
+        console.error('Error fetching data:', error);
+        this.error = 'Failed to fetch data. Please check the URL or try again later.';
+      });
   },
 };
 </script>
 
-<style>
-/*CSS*/
+<style scoped>
+.error-message {
+  color: red;
+}
 </style>
